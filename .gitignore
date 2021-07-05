@@ -1,0 +1,14 @@
+install
+data/session/
+data/tmp/
+data/cache/
+data/editor/
+data/log/
+member_image/
+data/file/
+data/smsFile/
+data/
+config.php
+.vscode/
+.idea_old/
+.htaccess

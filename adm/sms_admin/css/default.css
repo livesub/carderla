@@ -1,0 +1,238 @@
+@charset "utf-8";
+
+/*
+2010-06-19  CSS  2.1
+
+가급적 파일 수정없이 사용할것.
+기본 스타일을 추가해야할 경우에는 style.css 에 추가정의 바람.
+*/
+
+* {margin:0px; padding:0px;}
+body {font-size:75%}
+body,textarea,select,td,th, input { color:#666; line-height:150%; font-family:"돋움",Dotum,"굴림",Gulim,"Verdana","Tahoma";}
+hr {display:none;}
+h1 {display:none;}
+
+/* 글자 속성 */
+a{color:#666666;text-decoration:none;}
+a:visited,a:visited *{color:#666666;text-decoration:none;}
+a.visited,a.visited:visited{color:#666666;text-decoration:none;}
+a:hover,a:hover *,a.visited:hover{color:#000000;text-decoration:none;}
+
+/* LIST 요소 기본 */
+ul li {list-style:none;}
+ul.fllist li {float:left;}
+ul.fllist:after {clear:both;display:block;content:"";}
+
+/* Form 요소들 기본 */
+.wrest_required { background:#FFFFFF url("/_img/bg/inputBg.gif") no-repeat right bottom !important; }
+
+/* 비표준 CSS */
+.imeOn {ime-mode:deactivated;} /*한영, 전환가능*/
+.imeOff	{ime-mode:disabled;} /*영문, 숫자*/
+.imeEng {ime-mode:inactive}  /*영문, 한영전환 불가능*/
+.imeKor {ime-mode:active} /*기본:한글, 한영전환 가능*/
+
+
+fieldset {padding:0px;margin:0px;border:0px;}
+legend{display:none !important;}
+
+input.text,  input.password {border:1px solid #ddd; height:16px;  padding:2px 2px 0px 2px; font-size:100%;line-height:110%;}
+input.file {border:1px solid #ddd; height:16px;  padding:2px; font-size:100%;line-height:110%;}
+input.image, input.radio, input.checkbox {border:0px !important;vertical-align:middle;padding:0px;margin:0px;}
+input.num {text-align:right;border:1px solid #ddd; height:16px;  padding:2px; font-size:100%;line-height:110%;}
+input.readonly, textarea.readonly {background-color:#f7f7f7;} {background-color:#f7f7f7;}
+textarea {border:1px solid #ddd; padding:2px;}
+
+.noBorder {border:none !important; background-color:#f4f4f4 !important}
+
+.table_100 { width:100%;}
+
+.division { width:100%;position:relative}
+
+/* 이미지 요소 기본 */
+img {border:0px;vertical-align:middle;}
+.pointer, img.button{cursor:pointer;}
+
+/* css로 이미지 + 문자 롤오버 : 접근성 코딩시 사용불가 */
+.show { border-width:0px; display:inline; }
+.hide { border-width:0px; display:none; }
+.roll_over:hover { position:relative; }
+.roll_over:hover .show { display:none; }
+.roll_over:hover .hide { display:inline; }
+
+
+.lts1 {letter-spacing:-1px !important;}
+.lts2 {letter-spacing:-0.05em !important;}
+
+/* Table */
+table {border-collapse:collapse;}
+table.ashow {empty-cells:show;}
+* .no-data {height:100px;text-align:center;}
+
+/*기본 스타일 정의*/
+.fr {float:right;}
+.fl {float:left;}
+.cr {clear:both;}
+.aftercr:after {clear:both;content:"";display:block;}
+.isbox {display:block;position:relative;}
+
+.hidden {display:none;}
+.blind {display:none;}
+.gap {height:20px;clear:both;}
+.sgap {height:5px;clear:both;}
+
+.left ,.l {text-align:left !important;}
+.right,.r {text-align:right !important;}
+.center, .c {text-align:center !important;}
+.vtop,.vtop * {vertical-align:text-top !important;}
+.vcen,.vcen * {vertical-align:middle !important;}
+.vfoot,.vfoot * {vertical-align:text-bottom !important;}
+
+.nb {font-weight:normal}
+.txt_num {font-family:Verdana,Tahoma,"돋움","굴림";font-size:90%;}
+.en {font-family:Tahoma,"돋움","굴림";font-size:90%;}
+.dot_line {background:url("/image/img/dot.gif") repeat-x left bottom;}
+.ellipsis{white-space:nowrap;display:inline-block;overflow:hidden;text-overflow:ellipsis;-moz-binding: url('/_css/ellipsis.xml#ellipsis'); max-width:98%;}
+
+
+/* 폰트색상 */
+.c0  {color:#000 !important;}
+.c2  {color:#222 !important;}
+.c3  {color:#333 !important;}
+.c6  {color:#666 !important;}
+.c8  {color:#888 !important;}
+.c9  {color:#999 !important;}
+.cg1 {color:#69696a !important;}
+.cg2 {color:#ababab !important;}
+.cg3 {color:#848484 !important;}
+.cg4 {color:#727272 !important;}
+.cg5 {color:#b3b7bc !important;}
+.cred {color:#DF2519 !important;}
+.cblue {color:#2176C6 !important;}
+.cpink {color:#f9587d !important}
+.cgold {color:#AE9739 !important;}
+.cgreen {color:#758d0a !important;}
+
+
+/* 폰트크기 */
+.fs {font-size:95%}
+.fb {font-size:120%;}
+
+.f11 {font-size:11px;}
+.f12 {font-size:12px;}
+.f14 {font-size:14px;}
+
+.en {font-family:Verdana;}
+/* 패딩 */
+
+.pad5a {padding:5px}
+.pad5tf {padding-top:5px;padding-bottom:5px}
+.pad5lr {padding-left:5px;padding-right:5px;}
+.pad5r {padding-right:5px}
+.pad5l,.pad5 {padding-left:5px !important;}
+.pad5t {padding-top:5px}
+.pad5f {padding-bottom:5px}
+.pad10a {padding:10px}
+.pad10tf {padding-top:10px;padding-bottom:10px;}
+.pad10lr {padding-left:10px;padding-right:10px;}
+.pad10r {padding-right:10px}
+.pad10l, .pad10 {padding-left:10px !important;}
+.pad10t {padding-top:10px}
+.pad10f {padding-bottom:10px}
+.pad15a {padding:15px}
+.pad15tf {padding-top:15px;padding-bottom:15px}
+.pad15lr {padding-left:15px;padding-right:15px;}
+.pad15r {padding-right:15px}
+.pad15l, .pad15 {padding-left:15px}
+.pad15t {padding-top:15px}
+.pad15f {padding-bottom:15px}
+
+.pad20a {padding:20px}
+.pad20tf {padding-top:20px;padding-bottom:20px}
+.pad20lr {padding-left:20px;padding-right:20px;}
+.pad20r {padding-right:20px}
+.pad20l, .pad20 {padding-left:20px}
+.pad20t {padding-top:20px}
+.pad20f {padding-bottom:20px}
+.pad25a {padding:25px}
+.pad25tf {padding-top:25px;padding-bottom:25px}
+.pad25lr {padding-left:25px;padding-right:25px;}
+.pad25r {padding-right:25px}
+.pad25l,.pad25 {padding-left:25px}
+.pad25t {padding-top:25px}
+.pad25f {padding-bottom:25px}
+.pad30a {padding:30px}
+.pad30tf {padding-top:30px;padding-bottom:30px}
+.pad30lr {padding-left:30px;padding-right:30px;}
+.pad30r {padding-right:30px}
+.pad30l, .pad30 {padding-left:30px  !important;}
+.pad35l, .pad35 {padding-left:35px  !important;}
+.pad30t {padding-top:30px}
+.pad30f {padding-bottom:30px}
+
+
+
+/*마진*/
+.no_mg10 {margin:0px;}
+.mg5f {margin-bottom:5px;}
+.mg10f {margin-bottom:10px;}
+.mg15f {margin-bottom:15px;}
+.mg20f {margin-bottom:20px;}
+.mg25f {margin-bottom:25px;}
+.mg30f {margin-bottom:30px;}
+.mg5t {margin-top:5px;}
+.mg10t {margin-top:10px;}
+.mg15t {margin-top:15px;}
+.mg20t {margin-top:20px;}
+.mg25t {margin-top:25px;}
+.mg30t {margin-top:30px;}
+.mg5 {margin-left:5px;}
+.mg10 {margin-left:10px;}
+.mg15 {margin-left:15px;}
+.mg20 {margin-left:20px;}
+.mg25 {margin-left:25px;}
+.mg30 {margin-left:30px;}
+.mg5a {margin:5px;}
+.mg10a {margin:10px;}
+.mg15a {margin:15px;}
+.mg20a {margin:20px;}
+.mg25a {margin:25px;}
+.mg30a {margin:30px;}
+
+.w40p {width:40%;}
+.w45p {width:45%;}
+.w33p {width:33%;}
+
+/*페이징 스타일*/
+.page-btns {margin-top:15px;}
+.pagelist {text-align:center;line-height:110%;display:block;position:relative;}
+.pagelist * {vertical-align:middle;line-height:120%;}
+.pagelist span {font-size:90%;border:1px solid #DDD; margin:0px 2px 0px 2px; height:21px;_line-height:120%;color:#777 !important;}
+.pagelist span {padding:3px 6px 2px 6px;}
+.pagelist a:hover span {cursor:pointer;border-color:#0072bc;background:#EAEAEA;color:#0072bc;}
+.curPage span {background:#f8f8f8;color:#FFF;cursor:pointer;border-color:#0072bc;font-weight:bold;}
+
+.pagelist .firstpage span, .pagelist .firstpage_n span,
+.pagelist .prevblock span, .pagelist .prevblock_n span,
+.pagelist .nextblock span, .pagelist .nextblock_n span,
+.pagelist .lastpage span, .pagelist .lastpage_n span {padding:0px;border:0px !important;display:none;}
+
+.pagelist .firstpage {margin:0px;display:inline-block;width:21px;height:21px;background:url(/_img/btn/btn_board3.gif) 0 -289px no-repeat}
+.pagelist .prevblock {margin:0px 5px 0px 0px;display:inline-block;width:22px;height:21px;background:url(/_img/btn/btn_board3.gif) -21px -289px no-repeat}
+.pagelist .nextblock {margin:0px 0px 0px 5px;display:inline-block;width:22px;height:21px;background:url(/_img/btn/btn_board3.gif) -43px -289px no-repeat}
+.pagelist .lastpage {margin:0px;display:inline-block;width:21px;height:21px;background:url(/_img/btn/btn_board3.gif) -65px -289px no-repeat}
+.pagelist .firstpage_n {margin:0px;display:inline-block;width:21px;height:21px;background:url(/_img/btn/btn_board3.gif) 0 -268px no-repeat}
+.pagelist .prevblock_n {margin:0px 5px 0px 0px;display:inline-block;width:22px;height:21px;background:url(/_img/btn/btn_board3.gif) -21px -268px no-repeat}
+.pagelist .nextblock_n {margin:0px 0px 0px 5px;display:inline-block;width:22px;height:21px;background:url(/_img/btn/btn_board3.gif) -43px -268px no-repeat}
+.pagelist .lastpage_n {margin:0px;display:inline-block;width:21px;height:21px;background:url(/_img/btn/btn_board3.gif) -65px -268px no-repeat}
+
+.pagelist .firstpage, .pagelist .firstpage_n,
+.pagelist .prevblock, .pagelist .prevblock_n,
+.pagelist .nextblock, .pagelist .nextblock_n,
+.pagelist .lastpage, .pagelist .lastpage_n {display:inline-block;margin-top:2px;}
+.pagelist strong span, .pagelist a:hover span {}
+
+
+
+/* 더 추가해야할 경우에는 style.css 에 정의하여 사용!!*/
