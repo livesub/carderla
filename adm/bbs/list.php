@@ -251,5 +251,7 @@ if ($board['bo_use_rss_view']) {
     $rss_href = G5_ADM_BBS_URL.'/rss.php?bo_table='.$bo_table;
 }
 
+$admin_call_chk = "admin";  //관리자 페이지에서 스킨을 호출 했을시 체크
+
 $stx = get_text(stripslashes($stx));
 include_once($board_skin_path.'/list.skin.php');

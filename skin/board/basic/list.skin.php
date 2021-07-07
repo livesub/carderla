@@ -10,6 +10,10 @@ if ($is_nogood) $colspan++;
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0);
+
+//관리자 페이지에서 스킨을 호출 했을시 체크
+if($admin_call_chk == "admin") $move_page = G5_ADM_BBS_URL;
+else $move_page = G5_BBS_URL;
 ?>
 
 <!-- 게시판 목록 시작 { -->
@@ -25,8 +29,8 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
     </nav>
     <?php } ?>
     <!-- } 게시판 카테고리 끝 -->
-
-    <form name="fboardlist" id="fboardlist" action="<?php echo G5_BBS_URL; ?>/board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post">
+<!--    <form name="fboardlist"  id="fboardlist" action="<?php echo G5_BBS_URL; ?>/board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post"> -->
+    <form name="fboardlist" id="fboardlist" action="<?php echo $move_page; ?>/board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post">
 
     <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
     <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
@@ -252,7 +256,8 @@ function fboardlist_submit(f) {
             return false;
 
         f.removeAttribute("target");
-        f.action = g5_bbs_url+"/board_list_update.php";
+        //f.action = g5_bbs_url+"/board_list_update.php";
+        f.action = "<?=$move_page?>/board_list_update.php";
     }
 
     return true;
@@ -271,7 +276,8 @@ function select_copy(sw) {
 
     f.sw.value = sw;
     f.target = "move";
-    f.action = g5_bbs_url+"/move.php";
+    //f.action = g5_bbs_url+"/move.php";
+    f.action = "<?=$move_page?>/move.php";
     f.submit();
 }
 
