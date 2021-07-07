@@ -19,6 +19,6 @@ $arr_cnt = count($menu['menu300']);
 
 while ($row = sql_fetch_array($result)){
     $array_num = $array_num + 1;
-    $menu['menu300'][$arr_cnt] = array($array_num, $row[bo_subject]." 현황", G5_ADMIN_URL.'/bbs/board.php?bo_table='.$row[bo_table], $row[bo_table]);
+    $menu['menu300'][$arr_cnt] = array($array_num, $row['bo_subject']." 현황", G5_ADMIN_URL.'/bbs/board.php?bo_table='.$row['bo_table'], $row['bo_table']);
     $arr_cnt++;
 }
