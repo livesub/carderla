@@ -10,7 +10,7 @@ $menu['menu300'] = array (
     array('300700', 'FAQ관리', G5_ADMIN_URL.'/faqmasterlist.php', 'scf_faq', 1),
     array('300820', '글,댓글 현황', G5_ADMIN_URL.'/write_count.php', 'scf_write_count'),
     array('300821', '&nbsp', ''),
-    array('300901', '===== 게시판현황 =====', ''),
+    array('300901', '=== 게시판현황 ===', ''),
 );
 
 $result = sql_query(" select bo_table,bo_subject from {$g5['board_table']} ");
