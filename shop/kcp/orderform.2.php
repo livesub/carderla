@@ -173,6 +173,8 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 ?>
 
 <input type="hidden" name="kcp_noint"       value="<?php echo ($default['de_card_noint_use'] ? '' : 'N'); ?>">
+<input type="hidden" name="used_card_YN"        value="Y">
+<input type="hidden" name="used_card"        value="CCLG">
 
 <?php
 if($default['de_tax_flag_use']) {

@@ -9,6 +9,12 @@ if (!get_session('ss_admin')) {
 }
 */
 
+define('G5_ADM_BBS_DIR',        'adm/bbs');
+define('G5_ADM_BBS_URL', G5_ADMIN_URL.'/bbs');
+define('G5_ADM_BBS_PATH', G5_ADMIN_PATH.'/bbs');
+define('G5_ADM_HTTP_BBS_URL',  https_url(G5_ADM_BBS_DIR, false));
+define('G5_ADM_HTTPS_BBS_URL', https_url(G5_ADM_BBS_DIR, true));
+
 // 스킨디렉토리를 SELECT 형식으로 얻음
 function get_skin_select($skin_gubun, $id, $name, $selected='', $event='')
 {
@@ -365,7 +371,7 @@ function get_admin_token()
 
 // 관리자가 자동등록방지를 사용해야 할 경우
 function get_admin_captcha_by($type='get'){
-    
+
     $captcha_name = 'ss_admin_use_captcha';
 
     if($type === 'remove'){
@@ -400,7 +406,7 @@ function check_log_folder($log_path, $is_delete=true){
                 fclose( $handle );
             }
         }
-        
+
         // 아파치 서버인 경우 해당 디렉토리 파일 목록 안보이게 하기
         $index_file = $log_path . '/index.php';
         if ( !file_exists( $index_file ) ) {
@@ -410,13 +416,13 @@ function check_log_folder($log_path, $is_delete=true){
             }
         }
     }
-    
+
 	if( $is_delete ) {
 		try {
 			// txt 파일과 log 파일을 조회하여 30일이 지난 파일은 삭제합니다.
 			$txt_files = glob($log_path.'/*.txt');
 			$log_files = glob($log_path.'/*.log');
-			
+
 			$del_files = array_merge($txt_files, $log_files);
 
 			if( $del_files && is_array($del_files) ){
@@ -501,9 +507,9 @@ function admin_check_xss_params($params){
 
 function admin_menu_find_by($call, $search_key){
     global $menu;
-    
+
     static $cache_menu = array();
-    
+
     if( empty($cache_menu) ){
         foreach( $menu as $k1=>$arr1 ){
 
@@ -591,7 +597,7 @@ foreach($menu_files as $file){
 
 $amenu = run_replace('admin_amenu', $amenu);
 if( isset($menu) && $menu ){
-    $menu = run_replace('admin_menu', $menu); 
+    $menu = run_replace('admin_menu', $menu);
 }
 
 $arr_query = array();

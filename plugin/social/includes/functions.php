@@ -69,7 +69,7 @@ function social_return_from_provider_page( $provider, $login_action_url, $mb_id,
             set_session('social_login_redirect', 1);
         }
     }
-    
+
     $img_url = G5_SOCIAL_LOGIN_URL.'/img/';
     include_once(G5_SOCIAL_LOGIN_PATH.'/includes/loading.php');
 }
@@ -96,7 +96,7 @@ function social_login_get_provider_adapter( $provider )
     if( defined('G5_SOCIAL_LOGIN_START_PARAM') && G5_SOCIAL_LOGIN_START_PARAM === 'hauth.start' && G5_SOCIAL_LOGIN_DONE_PARAM === 'hauth.done' ){
         return $g5['hybrid_auth']->authenticate($provider);
     }
-    
+
     $base_url = G5_SOCIAL_LOGIN_BASE_URL;
     $hauth_time = time();
 
@@ -125,7 +125,7 @@ function social_before_join_check($url=''){
                 $is_exist = true;
 
                 $time = time() - (86400 * (int) G5_SOCIAL_DELETE_DAY);
-                
+
                 if( empty($row['mb_id']) && ( 0 == G5_SOCIAL_DELETE_DAY || strtotime($row['mp_latest_day']) < $time) ){
 
                     $sql = "delete from {$g5['social_profile_table']} where mp_no =".$row['mp_no'];
@@ -156,7 +156,7 @@ function social_get_data($by='provider', $provider, $user_profile){
 
     // 소셜 가입이 되어 있는지 체크
     if( $by == 'provider' ){
-        
+
         $sql = sprintf("select * from {$g5['social_profile_table']} where provider = '%s' and identifier = '%s' order by mb_id desc ", $provider, $user_profile->identifier);
 
         $row = sql_fetch($sql);
@@ -213,7 +213,7 @@ function social_user_profile_replace( $mb_id, $provider, $profile ){
 
     //받아온 정보를 암호화 하여
     $object_sha = sha1( serialize( $profile ) );
-    
+
     $provider = strtolower($provider);
 
     $sql = sprintf("SELECT mp_no, mb_id from {$g5['social_profile_table']} where provider= '%s' and identifier = '%s' ", $provider, $profile->identifier);
@@ -223,7 +223,7 @@ function social_user_profile_replace( $mb_id, $provider, $profile ){
            sql_query(sprintf("DELETE FROM {$g5['social_profile_table']} where mp_no=%d", $row['mp_no']));
         }
     }
-    
+
     $sql = sprintf("SELECT mp_no, object_sha, mp_register_day from {$g5['social_profile_table']} where mb_id= '%s' and provider= '%s' and identifier = '%s' ", $mb_id, $provider, $profile->identifier);
 
     $row = sql_fetch($sql);
@@ -237,7 +237,7 @@ function social_user_profile_replace( $mb_id, $provider, $profile ){
         'mp_latest_day' => "'". G5_TIME_YMDHIS . "'",
     );
 
-    $fields = array( 
+    $fields = array(
         'identifier',
         'profileurl',
         'photourl',
@@ -254,7 +254,7 @@ function social_user_profile_replace( $mb_id, $provider, $profile ){
             $table_data[ $key ] = "'". sql_real_escape_string($value). "'";
         }
     }
-    
+
     $fields  = '`' . implode( '`, `', array_keys( $table_data ) ) . '`';
     $values = implode( ", ", array_values( $table_data )  );
 
@@ -423,7 +423,7 @@ function social_get_error_msg($type){
                break;
       case 8 : echo "해당 서비스가 기능을 지원하지 않습니다."; break;
     }
-    
+
     $get_error = ob_get_clean();
 
     return $get_error;
@@ -446,7 +446,7 @@ if( !function_exists('replaceQueryParams') ){
 }
 
 function social_loading_provider_page( $provider ){
-    
+
 	social_login_session_clear(1);
 
     define('G5_SOCIAL_IS_LOADING', TRUE );
@@ -477,15 +477,15 @@ function social_check_login_before($p_service=''){
         try
         {
             $adapter = social_login_get_provider_adapter( $provider_name );
-            
-            // then grab the user profile 
+
+            // then grab the user profile
             $user_profile = $adapter->getUserProfile();
 
-            if( ! (isset($_SESSION['sl_userprofile']) && is_array($_SESSION['sl_userprofile'])) ){ 
-                $_SESSION['sl_userprofile'] = array(); 
+            if( ! (isset($_SESSION['sl_userprofile']) && is_array($_SESSION['sl_userprofile'])) ){
+                $_SESSION['sl_userprofile'] = array();
             }
 
-            if( ! $is_member ){ 
+            if( ! $is_member ){
                 $_SESSION['sl_userprofile'][$provider_name] = json_encode( $user_profile );
             }
         }
@@ -514,7 +514,7 @@ function social_check_login_before($p_service=''){
             if( $is_member ){
 
                 $msg = "이미 로그인 하셨거나 잘못된 요청입니다.";
-                
+
                 if( $mylink ){
                     $msg = "이미 연결된 아이디가 있거나, 잘못된 요청입니다.";
                 }
@@ -544,7 +544,7 @@ function social_check_login_before($p_service=''){
         } else {
 
             if( $is_member && !empty($user_profile) ){   //회원이면
-                
+
                 if( $mylink ){
 
                     social_user_profile_replace($member['mb_id'], $provider_name, $user_profile);
@@ -552,7 +552,7 @@ function social_check_login_before($p_service=''){
                     if( is_object( $adapter ) ){    //연결한것은 인증 받은 즉시 로그아웃한다.
                         social_logout_with_adapter($adapter);
                     }
-                    
+
                     // 세션에 소셜정보가 없으면 연결된 소셜서비스를 저장합니다.
                     if( ! get_session('ss_social_provider') ){
                         set_session('ss_social_provider', $provider_name);
@@ -575,7 +575,7 @@ function social_check_login_before($p_service=''){
                         if( $url ){
                             $social_token = social_nonce_create($provider_name);
                             set_session('social_link_token', $social_token);
-                            
+
                             $params = array('provider'=>$provider_name);
 
                             $url = replaceQueryParams($url, $params);
@@ -635,7 +635,7 @@ function social_check_login_before($p_service=''){
 }
 
 function social_register_member_check($member){
-    
+
     //소셜 정보로 가입시 데이터를 변환합니다.
     if( $user_profile = social_session_exists_check() ){
 
@@ -649,7 +649,7 @@ function social_register_member_check($member){
 }
 
 function social_profile_img_resize($path, $file_url, $width, $height){
-    
+
     // getimagesize 경우 php.ini 에서 allow_url_fopen 이 활성화 되어 있어야 원격이미지를 읽어올수 있습니다.
     list($w, $h, $ext) = @getimagesize($file_url);
     if( $w && $h && $ext ){
@@ -659,7 +659,7 @@ function social_profile_img_resize($path, $file_url, $width, $height){
         $w = ceil($width / $ratio);
 
         $tmp = imagecreatetruecolor($width, $height);
-        
+
         if($ext == 1){
             $image = imagecreatefromgif($file_url);
         } else if($ext == 3) {
@@ -684,7 +684,7 @@ function social_profile_img_resize($path, $file_url, $width, $height){
           imagegif($tmp, $path);
           break;
         }
-        
+
         chmod($path, G5_FILE_PERMISSION);
 
         /* cleanup memory */
@@ -730,8 +730,8 @@ function social_member_comfirm_redirect(){
         try
         {
             $adapter = social_login_get_provider_adapter( $provider_name );
-            
-            // then grab the user profile 
+
+            // then grab the user profile
             $user_profile = $adapter->getUserProfile();
         }
 
@@ -747,14 +747,14 @@ function social_member_comfirm_redirect(){
         }
 
         if( $user_provider = social_get_data('provider', $provider_name, $user_profile) ){
-            
+
             social_login_session_clear(1);
 
             $url = G5_BBS_URL.'/register_form.php';
 
             $social_token = social_nonce_create($provider_name);
             set_session('social_link_token', $social_token);
-            
+
             $params = array('provider'=>$provider_name);
 
             $url = replaceQueryParams($url, $params);
@@ -824,7 +824,7 @@ function social_login_success_after($mb, $link='', $mode='', $tmp_create_info=ar
     $provider = social_get_request_provider();
 
     if( isset($mb['mb_id']) && !empty($mb['mb_id']) && $provider && $user_profile = social_session_exists_check() ){
-        
+
         $mb_id = $mb['mb_id'];
         //로그인에 성공 했으면  기존 데이터와 비교하여 틀린 값이 없으면 업데이트 합니다.
         social_user_profile_replace($mb_id, $provider, $user_profile);
@@ -920,7 +920,7 @@ function social_get_provider_service_name($provider='', $all=''){
 }
 
 function social_provider_logout($provider='', $session_delete=1){
-    
+
     $provider = $provider ? $provider : get_session('ss_social_provider');
 
     if( $provider ){
@@ -933,7 +933,7 @@ function social_provider_logout($provider='', $session_delete=1){
             }
 
             Hybrid_Auth::logoutAllProviders();
-            
+
             /*
             if( $adapter = social_login_get_provider_adapter( $provider ) ){
                 $adapter->logout();
@@ -987,7 +987,7 @@ function social_service_check($provider){
     if( $config['cf_social_servicelist'] && option_array_checked($provider, $config['cf_social_servicelist']) ) {
         return true;
     }
-    
+
     return false;
 }
 
@@ -999,7 +999,7 @@ function exist_mb_id_recursive($mb_id){
     if( ! exist_mb_id($mb_id_add) ){
         return $mb_id_add;
     }
-    
+
     $count++;
     return exist_mb_id_recursive($mb_id);
 }
@@ -1012,7 +1012,7 @@ function exist_mb_nick_recursive($mb_nick){
     if( ! exist_mb_nick($mb_nick_add, '') ){
         return $mb_nick_add;
     }
-    
+
     $count++;
     return exist_mb_nick_recursive($mb_nick);
 }

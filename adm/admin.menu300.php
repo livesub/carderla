@@ -9,4 +9,16 @@ $menu['menu300'] = array (
     array('300600', '내용관리', G5_ADMIN_URL.'/contentlist.php', 'scf_contents', 1),
     array('300700', 'FAQ관리', G5_ADMIN_URL.'/faqmasterlist.php', 'scf_faq', 1),
     array('300820', '글,댓글 현황', G5_ADMIN_URL.'/write_count.php', 'scf_write_count'),
+    array('300821', '&nbsp', ''),
+    array('300901', '===== 게시판현황 =====', ''),
 );
+
+$result = sql_query(" select bo_table,bo_subject from {$g5['board_table']} ");
+$array_num = "300910";
+$arr_cnt = count($menu['menu300']);
+
+while ($row = sql_fetch_array($result)){
+    $array_num = $array_num + 1;
+    $menu['menu300'][$arr_cnt] = array($array_num, $row[bo_subject]." 현황", G5_ADMIN_URL.'/bbs/board.php?bo_table='.$row[bo_table], $row[bo_table]);
+    $arr_cnt++;
+}

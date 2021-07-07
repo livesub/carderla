@@ -4,7 +4,7 @@ if (!defined('_GNUBOARD_')) exit;
 include_once(dirname(__FILE__) .'/URI/uri.class.php');
 
 // 짧은 주소 형식으로 만들어서 가져온다.
-function get_pretty_url($folder, $no='', $query_string='', $action='')
+function get_pretty_url($folder, $no='', $query_string='', $action='', $BBS_PATH = G5_BBS_URL)
 {
     global $g5, $config;
 
@@ -74,7 +74,7 @@ function get_pretty_url($folder, $no='', $query_string='', $action='')
 
     } else { // don't use shortten url
         if(in_array($folder, $boards)) {
-            $url = G5_BBS_URL. '/board.php?bo_table='. $folder;
+            $url = $BBS_PATH. '/board.php?bo_table='. $folder;
             if($no) {
                 $url .= '&amp;wr_id='. $no;
             }
@@ -86,7 +86,7 @@ function get_pretty_url($folder, $no='', $query_string='', $action='')
                 $url .= $query_string;
             }
         } else {
-            $url = G5_BBS_URL. '/'.$folder.'.php';
+            $url = $BBS_PATH. '/'.$folder.'.php';
             if($no) {
                 $url .= ($folder === 'content') ? '?co_id='. $no : '?'. $no;
             }
@@ -195,7 +195,7 @@ function correct_goto_url($url){
 
 function generate_seo_title($string, $wordLimit=G5_SEO_TITEL_WORD_CUT){
     $separator = '-';
-    
+
     if($wordLimit != 0){
         $wordArr = explode(' ', $string);
         $string = implode(' ', array_slice($wordArr, 0, $wordLimit));
@@ -263,7 +263,7 @@ function exist_seo_title_recursive($type, $seo_title, $write_table, $sql_id=0){
     if( ! exist_seo_url($type, $seo_title_add, $write_table, $sql_id) ){
         return $seo_title_add;
     }
-    
+
     $count++;
 
     if( $count > 198 ){
@@ -274,7 +274,7 @@ function exist_seo_title_recursive($type, $seo_title, $write_table, $sql_id=0){
 }
 
 function seo_title_update($db_table, $pk_id, $type='bbs'){
-    
+
     global $g5;
 
     $pk_id = (int) $pk_id;
@@ -307,7 +307,7 @@ function get_nginx_conf_rules($return_string=false){
     $base_path = isset($get_path_url['path']) ? $get_path_url['path'].'/' : '/';
 
     $rules = array();
-    
+
     $rules[] = '#### '.G5_VERSION.' nginx rules BEGIN #####';
     $rules[] = 'if (!-e $request_filename){';
 
@@ -335,7 +335,7 @@ function get_mod_rewrite_rules($return_string=false){
     $base_path = isset($get_path_url['path']) ? $get_path_url['path'].'/' : '/';
 
     $rules = array();
-    
+
     $rules[] = '#### '.G5_VERSION.' rewrite BEGIN #####';
     $rules[] = '<IfModule mod_rewrite.c>';
     $rules[] = 'RewriteEngine On';
@@ -363,7 +363,7 @@ function get_mod_rewrite_rules($return_string=false){
 
 function check_need_rewrite_rules(){
     $is_apache = (stripos($_SERVER['SERVER_SOFTWARE'], 'apache') !== false);
-    
+
     if($is_apache){
         $save_path = G5_PATH.'/.htaccess';
 
@@ -377,7 +377,7 @@ function check_need_rewrite_rules(){
         $eof_str = end($rules);
 
         $code = file_get_contents($save_path);
-        
+
         if( strpos($code, $bof_str) === false || strpos($code, $eof_str) === false ){
             return true;
         }
@@ -402,7 +402,7 @@ function update_rewrite_rules(){
 
             if( file_exists($save_path) ){
                 $code = file_get_contents($save_path);
-                
+
                 if( $code && strpos($code, $bof_str) !== false && strpos($code, $eof_str) !== false ){
                     return true;
                 }
@@ -410,16 +410,16 @@ function update_rewrite_rules(){
 
             $fp = fopen($save_path, "ab");
             flock( $fp, LOCK_EX );
-            
+
             $rewrite_str = implode("\n", $rules);
-            
+
             fwrite( $fp, "\n" );
             fwrite( $fp, $rewrite_str );
             fwrite( $fp, "\n" );
 
             flock( $fp, LOCK_UN );
             fclose($fp);
-            
+
             return true;
         }
     }
